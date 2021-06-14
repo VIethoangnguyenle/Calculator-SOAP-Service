@@ -1,5 +1,6 @@
 package com.hoang.testSOAPService2.client;
 
+
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;

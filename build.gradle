@@ -1,3 +1,4 @@
+
 plugins {
 	id 'org.springframework.boot' version '2.5.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -13,39 +14,65 @@ repositories {
 }
 
 task genJaxb {
-	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
-	ext.classesDir = "${buildDir}/classes/jaxb"
-	ext.schema = "/home/viethoang/Desktop/kss_docs/testSOAPService2/src/main/resources/calculator.wsdl"
+	ext.sourcesDir1 = "${buildDir}/generated-sources/jaxb/calculate"
+	ext.sourcesDir2 = "${buildDir}/generated-sources/jaxb/convert"
+	ext.classesDir1 = "${buildDir}/classes/jaxb/calculate"
+	ext.classesDir2 = "${buildDir}/classes/jaxb/convert"
+	ext.schema1 = "/home/viethoang/Desktop/kss_docs/testSOAPService2/src/main/resources/wsdl/calculator.wsdl"
+	ext.schema2 = "/home/viethoang/Desktop/kss_docs/testSOAPService2/src/main/resources/wsdl/convert.wsdl"
 
-	outputs.dir classesDir
+	outputs.dir classesDir1
+	outputs.dir classesDir2
 
 	doLast() {
 		project.ant {
 			// Create output directories
 			taskdef name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask',
 					classpath: configurations.jaxb.asPath
+			mkdir(dir: sourcesDir1)
+			mkdir(dir: classesDir1)
+			mkdir(dir: sourcesDir2)
+			mkdir(dir: classesDir2)
 
-			mkdir(dir: sourcesDir)
-			mkdir(dir: classesDir)
-
-			xjc(destdir: sourcesDir, schema: schema, package: "com.hoang.testSOAPService2.client") {
+			xjc(destdir: sourcesDir1, schema: schema1, package: "com.hoang.testSOAPService2.client") {
 				arg(value: "-wsdl")
-				produces(dir: sourcesDir, includes: "**/*.java")
+				produces(dir: sourcesDir1, includes: "**/*.java")
 			}
 
-			javac(destdir: classesDir, source: 1.8, target: 1.8, debug: true,
+			xjc(destdir: sourcesDir2, schema: schema2, package: "com.hoang.testSOAPService2.convertClient") {
+				arg(value: "-wsdl")
+				produces(dir: sourcesDir2, includes: "**/*.java")
+			}
+
+			javac(destdir: classesDir1, source: 1.8, target: 1.8, debug: true,
 					debugLevel: 'lines,vars,source',
-					classpath: configurations.jaxb.asPath) {
-				src(path: sourcesDir)
+					classpath: configurations.jaxb.asPath,
+					includeAntRuntime: 'false') {
+				src(path: sourcesDir1)
+				include(name: '**/*.java')
+				include(name: '*.java')
+			}
+			javac(destdir: classesDir2, source: 1.8, target: 1.8, debug: true,
+					debugLevel: 'lines,vars,source',
+					classpath: configurations.jaxb.asPath,
+					includeAntRuntime: 'false') {
+				src(path: sourcesDir2)
 				include(name: '**/*.java')
 				include(name: '*.java')
 			}
 
-			copy(todir: classesDir) {
-				fileset(dir: sourcesDir, erroronmissingdir: false) {
+			copy(todir: classesDir1) {
+				fileset(dir: sourcesDir1, erroronmissingdir: false) {
 					exclude(name: '**/*.java')
 				}
 			}
+
+			copy(todir: classesDir2) {
+				fileset(dir: sourcesDir2, erroronmissingdir: false) {
+					exclude(name: '**/*.java')
+				}
+			}
+
 		}
 	}
 }
@@ -57,7 +84,8 @@ configurations {
 	jaxb
 }
 jar {
-	from genJaxb.classesDir
+	from genJaxb.classesDir1
+	from genJaxb.classesDir2
 }
 
 dependencies {
@@ -72,7 +100,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	implementation 'org.glassfish.jaxb:jaxb-runtime'
-	implementation(files(genJaxb.classesDir).builtBy(genJaxb))
+	implementation(files(genJaxb.classesDir1, genJaxb.classesDir2).builtBy(genJaxb))
 	jaxb 'com.sun.xml.bind:jaxb-xjc:2.1.7'
 }
 test {
