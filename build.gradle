@@ -17,12 +17,15 @@ task genJaxb {
 	ext.sourcesDir1 = "${buildDir}/generated-sources/jaxb/calculate"
 	ext.sourcesDir2 = "${buildDir}/generated-sources/jaxb/convert"
 	ext.sourcesDir3 = "${buildDir}/generated-sources/jaxb/flexcore"
+
 	ext.classesDir1 = "${buildDir}/classes/jaxb/calculate"
 	ext.classesDir2 = "${buildDir}/classes/jaxb/convert"
 	ext.classesDir3 = "${buildDir}/classes/jaxb/flexcore"
+
 	ext.schema1 = "/home/viethoang/Desktop/kss_docs/testSOAPService2/src/main/resources/wsdl/calculator.wsdl"
 	ext.schema2 = "/home/viethoang/Desktop/kss_docs/testSOAPService2/src/main/resources/wsdl/convert.wsdl"
 	ext.schema3 = "/home/viethoang/Desktop/kss_docs/testSOAPService2/src/main/resources/wsdl/flexcore.wsdl"
+
 	outputs.dir classesDir1
 	outputs.dir classesDir2
 	outputs.dir classesDir3
@@ -40,6 +43,7 @@ task genJaxb {
 
 			mkdir(dir: sourcesDir3)
 			mkdir(dir: classesDir3)
+
 			xjc(destdir: sourcesDir1, schema: schema1, package: "com.hoang.testSOAPService2.client") {
 				arg(value: "-wsdl")
 				produces(dir: sourcesDir1, includes: "**/*.java")
@@ -52,7 +56,7 @@ task genJaxb {
 
 			xjc(destdir: sourcesDir3, schema: schema3, package: "com.hoang.testSOAPService2.flexcore") {
 				arg(value: "-wsdl")
-				produces(dir: sourcesDir2, includes: "**/*.java")
+				produces(dir: sourcesDir3, includes: "**/*.java")
 			}
 
 			javac(destdir: classesDir1, source: 1.8, target: 1.8, debug: true,
@@ -63,6 +67,7 @@ task genJaxb {
 				include(name: '**/*.java')
 				include(name: '*.java')
 			}
+
 			javac(destdir: classesDir2, source: 1.8, target: 1.8, debug: true,
 					debugLevel: 'lines,vars,source',
 					classpath: configurations.jaxb.asPath,
@@ -112,6 +117,7 @@ configurations {
 jar {
 	from genJaxb.classesDir1
 	from genJaxb.classesDir2
+	from genJaxb.classesDir3
 }
 
 dependencies {
@@ -126,7 +132,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	implementation 'org.glassfish.jaxb:jaxb-runtime'
-	implementation(files(genJaxb.classesDir1, genJaxb.classesDir2).builtBy(genJaxb))
+	implementation(files(genJaxb.classesDir1, genJaxb.classesDir2, genJaxb.classesDir3).builtBy(genJaxb))
 	jaxb 'com.sun.xml.bind:jaxb-xjc:2.1.7'
 }
 test {
