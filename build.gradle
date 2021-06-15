@@ -16,13 +16,16 @@ repositories {
 task genJaxb {
 	ext.sourcesDir1 = "${buildDir}/generated-sources/jaxb/calculate"
 	ext.sourcesDir2 = "${buildDir}/generated-sources/jaxb/convert"
+	ext.sourcesDir3 = "${buildDir}/generated-sources/jaxb/flexcore"
 	ext.classesDir1 = "${buildDir}/classes/jaxb/calculate"
 	ext.classesDir2 = "${buildDir}/classes/jaxb/convert"
+	ext.classesDir3 = "${buildDir}/classes/jaxb/flexcore"
 	ext.schema1 = "/home/viethoang/Desktop/kss_docs/testSOAPService2/src/main/resources/wsdl/calculator.wsdl"
 	ext.schema2 = "/home/viethoang/Desktop/kss_docs/testSOAPService2/src/main/resources/wsdl/convert.wsdl"
-
+	ext.schema3 = "/home/viethoang/Desktop/kss_docs/testSOAPService2/src/main/resources/wsdl/flexcore.wsdl"
 	outputs.dir classesDir1
 	outputs.dir classesDir2
+	outputs.dir classesDir3
 
 	doLast() {
 		project.ant {
@@ -31,15 +34,23 @@ task genJaxb {
 					classpath: configurations.jaxb.asPath
 			mkdir(dir: sourcesDir1)
 			mkdir(dir: classesDir1)
+
 			mkdir(dir: sourcesDir2)
 			mkdir(dir: classesDir2)
 
+			mkdir(dir: sourcesDir3)
+			mkdir(dir: classesDir3)
 			xjc(destdir: sourcesDir1, schema: schema1, package: "com.hoang.testSOAPService2.client") {
 				arg(value: "-wsdl")
 				produces(dir: sourcesDir1, includes: "**/*.java")
 			}
 
 			xjc(destdir: sourcesDir2, schema: schema2, package: "com.hoang.testSOAPService2.convertClient") {
+				arg(value: "-wsdl")
+				produces(dir: sourcesDir2, includes: "**/*.java")
+			}
+
+			xjc(destdir: sourcesDir3, schema: schema3, package: "com.hoang.testSOAPService2.flexcore") {
 				arg(value: "-wsdl")
 				produces(dir: sourcesDir2, includes: "**/*.java")
 			}
@@ -61,6 +72,15 @@ task genJaxb {
 				include(name: '*.java')
 			}
 
+			javac(destdir: classesDir3, source: 1.8, target: 1.8, debug: true,
+					debugLevel: 'lines,vars,source',
+					classpath: configurations.jaxb.asPath,
+					includeAntRuntime: 'false') {
+				src(path: sourcesDir3)
+				include(name: '**/*.java')
+				include(name: '*.java')
+			}
+
 			copy(todir: classesDir1) {
 				fileset(dir: sourcesDir1, erroronmissingdir: false) {
 					exclude(name: '**/*.java')
@@ -69,6 +89,12 @@ task genJaxb {
 
 			copy(todir: classesDir2) {
 				fileset(dir: sourcesDir2, erroronmissingdir: false) {
+					exclude(name: '**/*.java')
+				}
+			}
+
+			copy(todir: classesDir3) {
+				fileset(dir: sourcesDir3, erroronmissingdir: false) {
 					exclude(name: '**/*.java')
 				}
 			}
