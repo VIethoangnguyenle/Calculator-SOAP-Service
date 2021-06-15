@@ -6,6 +6,7 @@ import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.SoapMessage;
 
+import javax.xml.stream.events.Namespace;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
