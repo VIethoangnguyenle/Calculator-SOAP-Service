@@ -112,6 +112,9 @@ task afterEclipseImport {
 }
 
 configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
 	jaxb
 }
 jar {

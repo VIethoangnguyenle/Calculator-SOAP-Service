@@ -6,7 +6,10 @@ import com.hoang.testSOAPService2.convertClient.NumberToDollars;
 import com.hoang.testSOAPService2.convertClient.NumberToDollarsResponse;
 import com.hoang.testSOAPService2.convertClient.NumberToWords;
 import com.hoang.testSOAPService2.convertClient.NumberToWordsResponse;
+import com.hoang.testSOAPService2.flexcore.MessageBytes;
+import com.hoang.testSOAPService2.flexcore.MessageBytesResponse;
 import com.hoang.testSOAPService2.model.Factory;
+import com.hoang.testSOAPService2.model.FlexcoreFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,13 +17,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import java.nio.charset.StandardCharsets;
+
 @RestController
 @RequestMapping("")
 public class Controller {
     private static final String url = "http://www.dneonline.com/calculator.asmx";
     private static final String url2 = "https://www.dataaccess.com/webservicesserver/NumberConversion.wso";
+    private static final String urlBDS = "http://bds.vm.sunshinetech.ai/BDSService/BDSService.svc";
+
     @Autowired
     private CalculatorClient client;
+    @Autowired
+    private BDSClient bdsClient;
 
     @PostMapping(value = "/add")
     public AddResponse addNumber(@RequestBody Add add){
@@ -76,5 +87,19 @@ public class Controller {
         sub.setDNum(number.getDNum());
         System.out.println(number.getDNum());
         return numberConvertClient.getNumberConvertDollar(url2, sub);
+    }
+
+    @PostMapping(value = "/flexcore", consumes = MediaType.ALL_VALUE)
+    public MessageBytesResponse getFlexcoreResponse(@RequestBody String a){
+        FlexcoreFactory request = new FlexcoreFactory();
+        MessageBytes messageBytes = request.createMessageBytes();
+        byte[] byteArray = a.getBytes(StandardCharsets.UTF_8);
+
+        messageBytes.setPvArrByteMessage(new JAXBElement(new QName("http://bds.vm.sunshinetech.ai/BDSService/",
+                "pvArrByteMessage"), Byte.class, byteArray));
+
+        System.out.println(messageBytes.getPvArrByteMessage());
+
+        return bdsClient.getMessageBytesResponse(urlBDS, messageBytes);
     }
 }

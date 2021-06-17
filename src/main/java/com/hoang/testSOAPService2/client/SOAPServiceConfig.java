@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 @Configuration
-public class CalculatorClientConfig {
+public class SOAPServiceConfig {
 
     @Bean
     public Jaxb2Marshaller marshaller(){
@@ -19,8 +19,16 @@ public class CalculatorClientConfig {
         marshaller.setContextPath("com.hoang.testSOAPService2.convertClient");
         return marshaller;
     }
+
     @Bean
-    public CalculatorClient numberConvertClient(Jaxb2Marshaller marshaller){
+    public Jaxb2Marshaller marshaller3(){
+        Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+        marshaller.setContextPath("com.hoang.testSOAPService2.flexcore");
+        return marshaller;
+    }
+
+    @Bean
+    public CalculatorClient numberCalculateClient(Jaxb2Marshaller marshaller){
         CalculatorClient client = new CalculatorClient();
         client.setDefaultUri("http://www.dneonline.com/calculator.asmx");
         client.setMarshaller(marshaller);
@@ -29,7 +37,7 @@ public class CalculatorClientConfig {
     }
 
     @Bean
-    public NumberConvertClient numberConvertClient2(Jaxb2Marshaller marshaller2){
+    public NumberConvertClient numberConvertClient(Jaxb2Marshaller marshaller2){
         NumberConvertClient client = new NumberConvertClient();
         client.setDefaultUri("https://www.dataaccess.com/webservicesserver/NumberConversion.wso");
         client.setMarshaller(marshaller2);
@@ -37,4 +45,12 @@ public class CalculatorClientConfig {
         return client;
     }
 
+    @Bean
+    public BDSClient bdsClient(Jaxb2Marshaller marshaller3){
+        BDSClient client2 = new BDSClient();
+        client2.setDefaultUri("http://bds.vm.sunshinetech.ai/BDSService/BDSService.svc");
+        client2.setMarshaller(marshaller3);
+        client2.setUnmarshaller(marshaller3);
+        return client2;
+    }
 }
