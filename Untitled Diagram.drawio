@@ -1,1 +1,54 @@
-<mxfile host="app.diagrams.net" modified="2021-11-26T03:30:39.567Z" agent="5.0 (X11)" version="15.8.6" etag="xHSLjMlEEfbTe8HwqKks" type="github"><diagram id="kyZlcB3xCLVGRmdo0wzh">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-11-26T10:40:10.661Z" agent="5.0 (X11)" etag="25yKsKhgmfE3mrh3JRZO" version="15.8.6" type="github">
+  <diagram id="kyZlcB3xCLVGRmdo0wzh" name="Page-1">
+    <mxGraphModel dx="1358" dy="763" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="_feeTosTdSZNGCY7RN4B-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="_feeTosTdSZNGCY7RN4B-2" target="_feeTosTdSZNGCY7RN4B-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-7" value="CALL" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" vertex="1" connectable="0" parent="_feeTosTdSZNGCY7RN4B-6">
+          <mxGeometry x="0.0316" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#000000;" edge="1" parent="1" source="_feeTosTdSZNGCY7RN4B-2" target="_feeTosTdSZNGCY7RN4B-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-2" value="BANK" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="200" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-4" value="Thực hiện nộp tiền trên app" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="_feeTosTdSZNGCY7RN4B-3" target="_feeTosTdSZNGCY7RN4B-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-3" value="APP KSS" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="690" y="320" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#000000;" edge="1" parent="1" source="_feeTosTdSZNGCY7RN4B-5" target="_feeTosTdSZNGCY7RN4B-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-5" value="&lt;br&gt;&lt;pre style=&quot;font-family: &amp;#34;jetbrains mono&amp;#34; , monospace ; font-size: 9.8pt&quot;&gt;&lt;span style=&quot;background-color: rgb(255 , 255 , 255)&quot;&gt;API BE: /api/v1.0/utility/banking/kss/callback/income&lt;/span&gt;&lt;/pre&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="220" width="440" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-9" value="Cắt tiền TK Bank" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=#FFFFFF;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="685" y="100" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#000000;" edge="1" parent="1" source="_feeTosTdSZNGCY7RN4B-19" target="_feeTosTdSZNGCY7RN4B-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-19" value="Tạo form 1141 trên Flexcore" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=#FFFFFF;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="320" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#000000;" edge="1" parent="1" source="_feeTosTdSZNGCY7RN4B-21" target="_feeTosTdSZNGCY7RN4B-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-21" value="Duyệt giao dịch trên Flex" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=#FFFFFF;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="335" y="420" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_feeTosTdSZNGCY7RN4B-23" value="Xuất hiện trên lịch sử giao dịch" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#FFFFFF;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="350" y="510" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
